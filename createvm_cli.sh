@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -u
+
 
 if az account show|grep "state.: .Enabled" > /dev/null;then
 	echo "Estas conectado con subscripcion activa"
@@ -39,8 +41,10 @@ fi
 
 echo "Probamos a conectarnos por ssh"
 
-IP_PUBLICA=cat /tmp/lista.json |grep publicIpAddress|cut -d\: -f2|grep -Eo "[0-9.]*"
+#Sacamos la IP del JSON de salida
+IP_PUBLICA=$(cat /tmp/vm_create.json |grep publicIpAddress|cut -d\: -f2|grep -Eo "[0-9.]*")
 
 
 sleep 5
+echo "Comprobamos que tenemos conexion ssh con la IP publica $IP_PUBLICA"
 ssh -p22 -i /home/yago/.ssh/id_rsa yagovm@$IP_PUBLICA  "hostname -f"
