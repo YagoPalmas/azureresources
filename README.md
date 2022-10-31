@@ -1,0 +1,2 @@
+# azureresources
+Recursos para Azure
