@@ -47,4 +47,4 @@ IP_PUBLICA=$(cat /tmp/vm_create.json |grep publicIpAddress|cut -d\: -f2|grep -Eo
 
 sleep 5
 echo "Comprobamos que tenemos conexion ssh con la IP publica $IP_PUBLICA"
-ssh -p22 -i /home/yago/.ssh/id_rsa yagovm@$IP_PUBLICA  "hostname -f"
+ssh -p22  -o StrictHostKeyChecking=no -i /home/yago/.ssh/id_rsa yagovm@$IP_PUBLICA  "hostname -f"
