@@ -1,5 +1,13 @@
 #! /bin/bash
 
+
+NAMERG="$1"
+
+if [ $# -ne 1 ];then
+	echo "Introduce el grupo de recursos"
+	exit 1
+fi
+
 set -u
 
 # Comprobamos si hay subscripcion activa por defecto
@@ -23,6 +31,7 @@ if [ $? -ne 0 ];then
 fi
 
 # Creamos la red virtual
+az network vnet list --query '[].{"Name":name,"ResourceGroup":resourceGroup}' --resource-group $NAMERG --output table
 echo "Creamos red virtual en el grupo de recurso $NAMERG con subred 192.168.10.0/24"
 echo "az network vnet create -g $NAMERG -n myvn1 --address-prefix 192.168.0.0/16 --subnet-name MySubnet --subnet-prefix 192.168.10.0/24"
 az network vnet create -g $NAMERG -n myvn1 --address-prefix 192.168.0.0/16 --subnet-name MySubnet --subnet-prefix 192.168.10.0/24
