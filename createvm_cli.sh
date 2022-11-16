@@ -1,11 +1,13 @@
 #! /bin/bash
 
 
-NAMERG="$1"
 
 if [ $# -ne 1 ];then
-	echo "Introduce el grupo de recursos"
-	exit 1
+	# Pedimos el grupo de Recursos
+	echo "Vamos crear un grupo de recursos en East US:"
+	read -p "Dame el nombre del grupo de recursos:" NAMERG
+else
+	NAMERG="$1"
 fi
 
 set -u
@@ -20,9 +22,6 @@ else
 	exit 1
 fi
 
-# Pedimos el grupo de Recursos
-echo "Vamos crear un grupo de recursos en East US:"
-read -p "dame el nombre del grupo de recursos:" NAMERG
 
 az group create --name $NAMERG --location eastus
 if [ $? -ne 0 ];then
